@@ -1,0 +1,42 @@
+{combinejs input=array("/media0/js/jquery.cookie.js", "/libs/js/bootstrap.js", '/libs/js/jquery.lazyload.js', '/libs/js/fn.bookmarks.js', "/libs/js/fn.mask.js", "/media0/js/jquery.form.js", "/libs/js/fn.expandarea.js", "/media0/js/jquery.comments.js", "/assets/restaurant/js/application.js","/media0/js/jquery.cart.1.2.js", "/media0/js/jquery.validator.js", "/media0/js/jquery.fancybox.pack.js", "/libs/js/jquery.elevatezoom.js", '/libs/js/product.js') output='alboms/all.js' age='31'}
+
+<!--[if lt IE 10]>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="https://dadata.ru/static/js/lib/jquery.suggestions-15.7.min.js"></script>
+
+{if $GLOBS.user_id eq 3}
+{combinejs input=array("/libs/ace/ace.js", "/libs/ace/ext-language_tools.js", '/libs/ace/ext-emmet.js', '/libs/ace/mode-javascript.js', "/libs/ace/snippets/javascript.js", "/libs/ace/worker-javascript.js", "/libs/ace/mode-css.js", "/libs/ace/snippets/css.js", "/libs/ace/worker-css.js", "/libs/js/design-ui.js") output='alboms/design-ui.js' age='31'}
+{/if}
+{if $ext_shopexpresssocialtabs}
+<script src="/media0/js/jquery.wiwi.js"></script>
+<script>
+!function ($) {
+$(function(){
+{if $shopexpresssocialtabs_twitter}$.wiwis({ selector : '.twitter' });{/if}
+{if $shopexpresssocialtabs_fb}$.wiwis({ selector : '.facebook' });{/if}
+{if $shopexpresssocialtabs_vk}$.wiwis({ selector : '.vk' });{/if}
+{if $shopexpresssocialtabs_map}$.wiwis({ selector : '.map' });{/if}
+{if $shopexpresssocialtabs_ok}$.wiwis({ selector : '.odkl' });{/if}
+})
+}(window.jQuery)
+</script>
+{if $shopexpresssocialtabs_ok}
+<script>
+!function (d, id, did, st) {
+  var js = d.createElement("script");
+  js.src = "http://connect.ok.ru/connect.js";
+  js.onload = js.onreadystatechange = function () {
+  if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+    if (!this.executed) {
+      this.executed = true;
+      setTimeout(function () {
+        OK.CONNECT.insertGroupWidget(id,did,st);
+      }, 0);
+    }
+  }}
+  d.documentElement.appendChild(js);
+} (document,"ok_group_widget","{$shopexpresssocialtabs_ok}","{ width:400,height:335 }");
+</script>
+{/if}
+{/if}

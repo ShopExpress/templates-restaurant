@@ -1,0 +1,65 @@
+{*
+<!-- Значения всех полей условны и приведены исключительно для примера --> 
+<form action="https://money.yandex.ru/eshop.xml" method="post"> 
+  
+<!-- Обязательные поля --> 
+<input name="shopId" value="1234" type="hidden"/> 
+<input name="scid" value="4321" type="hidden"/> 
+<input name="sum" value="100.50" type="hidden"> 
+<input name="customerNumber" value="abc000" type="hidden"/> 
+  
+<!-- Необязательные поля --> 
+<input name="shopArticleId" value="567890" type="hidden"/> 
+<input name="paymentType" value="AC" type="hidden"/> 
+<input name="orderNumber" value="abc1111111" type="hidden"/> 
+<input name="cps_phone" value="79110000000" type="hidden"/> 
+<input name="cps_email" value="user@domain.com" type="hidden"/> 
+  
+<input type="submit" value="Заплатить"/> 
+</form>
+*}
+{if $GLOBS.currency.code neq 'RUR' && $GLOBS.currency.code neq 'RUB'}
+{assign var=summ value=ceil($summ/$GLOBS.allcurrencies.RUB.course)}
+{/if}
+
+{if $GLOBS.merchants.yandexmoney_ur['PC']}
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_pc.html"}
+{/if}
+
+{if $GLOBS.merchants.yandexmoney_ur['WM']}
+<!-- Из кошелька в системе WebMoney -->
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_wm.html"}
+{/if}
+{if $GLOBS.merchants.yandexmoney_ur['QW']}
+<!-- Из кошелька в системе WebMoney -->
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_qw.html"}
+{/if}
+
+{if $GLOBS.merchants.yandexmoney_ur['AC']}
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_ac.html"}
+{/if}
+
+{if $GLOBS.merchants.yandexmoney_ur['MC']}
+<!-- Со счета мобильного телефона -->
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_mc.html"}
+{/if}
+
+{if $GLOBS.merchants.yandexmoney_ur['GP']}
+<!-- Наличными через кассы и терминалы -->
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_gp.html"}
+{/if}
+
+{if $GLOBS.merchants.yandexmoney_ur['SB']}
+<!-- Через Сбербанк Онлайн -->
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_sb.html"}
+{/if}
+
+{if $GLOBS.merchants.yandexmoney_ur['AB']}
+<!-- Через альфаклик -->
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_ab.html"}
+{/if}
+
+{if $GLOBS.merchants.yandexmoney_ur['PB']}
+<!-- Через альфаклик -->
+{include file="$TMPL_FOLDER/mod/merchants/yandexkassa_pb.html"}
+{/if}

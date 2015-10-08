@@ -1,0 +1,42 @@
+{include file="$TMPL_FOLDER/inc/design-ui.html"}
+<header>
+	<div class="container">
+		<div class="header-inner">
+			{if is_array($GLOBS.LOGO)}
+			<div class="brand brand-image"><a href="/" title="{$GLOBS.SITEDESCRIPTION|escape}"><img src="{$GLOBS.LOGO[0].path}" alt="{$GLOBS.SITENAME}" /></a></div>
+			{else if $GLOBS.LOGO}
+			<div class="brand brand-image"><a href="/" title="{$GLOBS.SITEDESCRIPTION|escape}"><img src="{$GLOBS.LOGO}" alt="{$GLOBS.SITENAME}" /></a></div>
+			{else}
+			<div class="brand"><a href="/">{$GLOBS.SITENAME}<small>{$GLOBS.SITEDESCRIPTION}</small></a></div>
+			{/if}
+			
+			<div class="contacts">
+				{if $GLOBS.PHONE}<div class="phone">{$GLOBS.PHONE}</div>{/if}
+				{if $GLOBS.PHONES}<small>{$GLOBS.PHONES}</small><br />{/if}
+				{if $ext_shopexpresscallback}<a href="{$shopexpresscallback_url|default:'/contacts/order.html'}?from={$oid}" rel="nofollow" data-toggle="modal" data-target="#feedback-box" class="btn btn-xs"><i class="glyphicon glyphicon-phone"></i> {$shopexpresscallback_text|default:'Заказать обратный звонок'}</a>{/if}
+				<a href="/delivery/" id="minibasket" {if $vpath|contains:'/delivery/'}class="active"{/if}>Доставка</a>
+			</div>
+			
+			{if $ext_livesearch}
+			<form class="form-search" role="search" action="/search/">
+			<div class="input-group"><input type="text" placeholder="Введите слово для поиска по сайту" name="q" value="{$searchquery}" class="search-query form-control"><span class="input-group-btn"><button type="submit" class="btn btn-search"><span class="glyphicon glyphicon-search"></span> Поиск</button></span></div>
+			</form>
+			<script src="/media0/js/jquery.autocomplete.js"></script>
+			<script src="/media0/js/jquery.highlight.js"></script>
+			<script>$('.search-query').AutoCompleter();</script>
+			{/if}
+		</div>
+	</div>
+</header>
+{*{if $GLOBS.user_id eq 6}<li><a href="/cabinet/?tmpl=short&amp;r={$vpath|escape:url}" rel="nofollow" data-toggle="modal" data-target="#login-box" class="topbar-cabinet">Вход/Регистрация</a></li>{else}<li><a href="/cabinet/" class="topbar-cabinet{if $vpath|contains:'/cabinet/'} active{/if}" title="Ваш личный кабинет, {$GLOBS.userdata.name|default:$GLOBS.userdata.login}">Личный кабинет</a></li>{/if}*}
+<div class="modal fade" id="login-box" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div class="modal fade" id="feedback-box" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div class="modal fade absbasket" id="absbasket-box" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<script>
+$('#feedback-box').on('hidden.bs.modal', function (e) {
+	$(this).removeData('bs.modal');
+});
+$('#absbasket-box').on('hidden.bs.modal', function (e) {
+	$(this).removeData('bs.modal');
+});
+</script>

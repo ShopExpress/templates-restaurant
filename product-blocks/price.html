@@ -1,0 +1,26 @@
+{if $ext_comments}
+<p class="product-rating" property="v:rating" content="{$ratingaverage}">
+	<a href="#comments" title="Поставить свою оценку" rel="tooltip">{section name=poprank loop=$ratingaverage step=1}<i class="star-rating star-rating-on"></i>{/section}{if ceil($ratingaverage)-$ratingaverage > 0}<i class="star-rating star-rating-half star-rating-on"></i>{/if}{section name=poprank loop=5-$ratingaverage step=1}<i class="star-rating"></i>{/section}</a>
+</p>
+{/if}
+{if $price}
+<div class="price-block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+	{if $discount}<small>Старая цена <span class="oldprice">{$price|price:false}</span> {$GLOBS.currency.shortname}</small><br />
+	{else if $old_price}<small>Старая цена <span class="oldprice">{$old_price|price:false}</span> {$GLOBS.currency.shortname}</small><br />{else}Цена: {/if}
+	
+	<span itemprop="price" class="price" data-price="{$price|discount:$discount|price:false:false}" data-discount-percent="{$discount.percent|default:0}" data-discount-money="{$discount.money|default:0}" data-oldprice="{if $discount}{$price|price:false:false}{else if $old_price}{$old_price|price:false:false}{else}{$price|price:false:false}{/if}">{$price|discount:$discount|price:false}</span> {$GLOBS.currency.shortname} {if $units}за {numeral ends=$units number=1}{/if}
+	{if $discount}<sup class="label label-success">Скидка {$discount.human}</sup>{/if}
+	{if $GLOBS.user_id neq 6 && $ext_userpoints && $points != '0'}{if $points}<span class="label label-success" title="При покупке добавляет {$points} {numeral ends='бонусный, бонусныx, бонусныx' number=$points} {numeral ends='балл, балла, баллов' number=$points} на ваш счёт" rel="tooltip"><i class="glyphicon glyphicon-gift"></i> {$points} {numeral ends='бонус, бонуса, бонусов' number=$points}</span>{else}<span class="label label-success" title="При покупке добавляет {($price|discount:$discount)/$userpoints.order} {numeral ends='бонусный, бонусныx, бонусныx' number=($price|discount:$discount)/$userpoints.order} {numeral ends='балл, балла, баллов' number=($price|discount:$discount)/$userpoints.order} на ваш счёт" rel="tooltip"><i class="glyphicon glyphicon-gift"></i> {($price|discount:$discount)/$userpoints.order} {numeral ends='бонус, бонуса, бонусов' number=($price|discount:$discount)/$userpoints.order}</span>{/if}
+	{/if}
+	
+	{if $discount.date_to_days < 30}<span class="countdown" data-date="{$discount.date_to}"></span><script src="/media0/js/jquery.countdown.js"></script><script>$('.price-block .countdown').countdown();</script>{/if}
+	<meta itemprop="priceCurrency" content="{$GLOBS.currency.code}">
+	
+	{if $ext_productcoupongenerator && $productcoupongenerator_working && $args.ProductCouponGenerator.name}
+		<sup class="label label-danger" title="При покупке вы получите подарочный купон, который можно подарить другу или использовать лично" rel="tooltip"><i class="glyphicon glyphicon-gift"></i> {$args.ProductCouponGenerator.name} на {$args.ProductCouponGenerator.money|price}</sup>
+	{/if}
+	<div class="quantity"></div>
+</div>
+{else}
+<div class="price-block">Цена не указана <span class="price" data-price="0" style="display:none;"></span></div>
+{/if}

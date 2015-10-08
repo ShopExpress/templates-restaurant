@@ -1,0 +1,10 @@
+{if $ext_shopexpresscopyright}
+{if $shopexpresscopyright_url eq 'yes'}
+<a href="http://shopexpress.difocus.ru" target="_blank" {if $vpath neq '/'}rel="nofollow"{/if}>restaurant.difocus.ru &mdash; cоздание сайта для ресторана</a>
+{else}
+{if $shopexpresscopyright_anchor}<br />{$shopexpresscopyright_anchor}{/if}
+{/if}
+{else}
+{if $vpath neq '/'}<!--noindex-->{/if}
+<a href="http://shopexpress.difocus.ru" target="_blank" {if $vpath neq '/'}rel="nofollow"{/if}>restaurant.difocus.ru &mdash; cоздание сайта для ресторана</a>
+{/if}{if $vpath neq '/'}<!--/noindex-->{/if}
